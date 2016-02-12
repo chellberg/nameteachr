@@ -6,24 +6,34 @@
 import React, {
   AppRegistry,
   Component,
+  Image,
   StyleSheet,
   Text,
   View
 } from 'react-native';
 
+import darren from './img/darren_carter.jpg'
+
 class NameTeachr extends Component {
+
   render() {
+    const imageStyle = {
+      width: 150,
+      height: 150
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to the OurHealth NameTeachr!
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <Image source={require('./img/ashley_davis.jpg')}
+               style={imageStyle}
+        />
+
+        <Image source={darren}
+               style={imageStyle}
+        />
       </View>
     );
   }
