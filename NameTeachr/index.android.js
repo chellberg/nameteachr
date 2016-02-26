@@ -9,31 +9,49 @@ import React, {
   Image,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from 'react-native';
+import _ from 'lodash'
 
-import darren from './img/darren_carter.jpg'
+import names from './utils/names'
 
 class NameTeachr extends Component {
+  constructor(props) {
+    super(props)
+    const uriArray = _.map(names.array, name => {
+      return `http://s3.amazonaws.com/healthpro-static-assets/HQ/${name}.jpg`
+    })
+
+    this.state = {
+      currentIndex: 0,
+      uriArray
+    }
+  }
+
+  incrementIndex() {
+    this.setState({
+      currentIndex: this.state.currentIndex + 1
+    })
+  }
 
   render() {
     const imageStyle = {
-      width: 150,
-      height: 150
+      width: 400,
+      height: 400
     }
 
+    const uri = this.state.uriArray[this.state.currentIndex]
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to the OurHealth NameTeachr!
         </Text>
-        <Image source={require('./img/ashley_davis.jpg')}
-               style={imageStyle}
-        />
-
-        <Image source={darren}
-               style={imageStyle}
-        />
+        <TouchableOpacity onPress={() => this.incrementIndex()}>
+          <Image source={{ uri: uri }}
+                 style={imageStyle}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
