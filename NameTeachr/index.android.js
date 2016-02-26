@@ -10,8 +10,9 @@ import React, {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
+import Button from 'react-native-button'
 import _ from 'lodash'
 
 import names from './utils/names'
@@ -25,20 +26,57 @@ class NameTeachr extends Component {
 
     this.state = {
       currentIndex: 0,
-      uriArray
+      showName: false,
+      uriArray,
     }
   }
 
-  incrementIndex() {
+  nextImage() {
     this.setState({
-      currentIndex: this.state.currentIndex + 1
+      currentIndex: this.state.currentIndex + 1,
+      showName: false,
     })
+  }
+
+  revealName() {
+    this.setState({
+      showName: true,
+    })
+  }
+
+  renderButtonOrName() {
+    if (this.state.showName) {
+      return (
+        <Text style={styles.welcome}>
+          { _.startCase(names.array[this.state.currentIndex])}
+        </Text>
+      )
+    } else {
+      return (
+        <Button onPress={() => this.revealName()}
+                containerStyle={{
+                  padding:10,
+                  height:45,
+                  overflow:'hidden',
+                  borderRadius:5,
+                  marginTop: 5,
+                  backgroundColor: '#5287BB',
+                }}
+                style={{
+                  fontSize: 20,
+                  color: 'white',
+                }}
+        >
+          Reveal Name
+        </Button>
+      )
+    }
   }
 
   render() {
     const imageStyle = {
       width: 400,
-      height: 400
+      height: 400,
     }
 
     const uri = this.state.uriArray[this.state.currentIndex]
@@ -52,12 +90,13 @@ class NameTeachr extends Component {
           Tap the image to advance
         </Text>
         <TouchableOpacity
-          onPress={() => this.incrementIndex()}
+          onPress={() => this.nextImage()}
           style={{ marginTop: 20 }}>
           <Image source={{ uri: uri }}
                  style={imageStyle}
           />
         </TouchableOpacity>
+        { this.renderButtonOrName()}
       </View>
     );
   }
