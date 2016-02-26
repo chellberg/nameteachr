@@ -45,9 +45,15 @@ class NameTeachr extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to the OurHealth NameTeachr!
+          Welcome to OurHealth!
         </Text>
-        <TouchableOpacity onPress={() => this.incrementIndex()}>
+        <Text style={styles.instructions}>
+          Time to learn some names.
+          Tap the image to advance
+        </Text>
+        <TouchableOpacity
+          onPress={() => this.incrementIndex()}
+          style={{ marginTop: 20 }}>
           <Image source={{ uri: uri }}
                  style={imageStyle}
           />
